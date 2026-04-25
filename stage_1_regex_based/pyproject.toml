@@ -1,0 +1,9 @@
+[project]
+name = "stage-1-regex-based"
+version = "0.1.0"
+description = "Stage 1: Rule-based Hindi PII detection and redaction"
+requires-python = ">=3.10"
+dependencies = [
+    "seqeval>=1.2.2",
+]
+
