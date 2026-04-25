@@ -418,9 +418,6 @@ dependencies = [
 [package.metadata]
 requires-dist = [{ name = "seqeval", specifier = ">=1.2.2" }]
 
-[package.metadata.requires-dev]
-dev = []
-
 [[package]]
 name = "threadpoolctl"
 version = "3.6.0"
