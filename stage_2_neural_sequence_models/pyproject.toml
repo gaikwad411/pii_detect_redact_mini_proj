@@ -1,0 +1,13 @@
+[project]
+name = "stage-2-neural-sequence-models"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "gensim>=4.4.0",
+    "numpy>=2.4.4",
+    "pytorch-crf>=0.7.2",
+    "seqeval>=1.2.2",
+    "torch>=2.11.0",
+]

@@ -1,0 +1,281 @@
+{
+  "train_results": [
+    {
+      "model_name": "RNN",
+      "best_val_f1": 0.29757233547069895,
+      "best_val_recall": 0.3139650476991114,
+      "best_epoch": 2,
+      "total_time": 14.2,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.8078,
+          "grad_norm": 0.6887,
+          "embed_norm": 0.079583,
+          "val_f1": 0.1308,
+          "val_recall": 0.0988,
+          "val_precision": 0.2563
+        },
+        {
+          "epoch": 2,
+          "loss": 0.464,
+          "grad_norm": 0.3954,
+          "embed_norm": 0.200673,
+          "val_f1": 0.2976,
+          "val_recall": 0.314,
+          "val_precision": 0.368
+        }
+      ],
+      "gradient_problem": "Insufficient epochs to diagnose.",
+      "checkpoint_path": "checkpoints/rnn_best.pt"
+    },
+    {
+      "model_name": "LSTM",
+      "best_val_f1": 0.09731324739866438,
+      "best_val_recall": 0.07335432273006913,
+      "best_epoch": 2,
+      "total_time": 24.3,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.9112,
+          "grad_norm": 0.4458,
+          "embed_norm": 0.06459,
+          "val_f1": 0.0083,
+          "val_recall": 0.0048,
+          "val_precision": 0.0303
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5588,
+          "grad_norm": 0.2579,
+          "embed_norm": 0.120165,
+          "val_f1": 0.0973,
+          "val_recall": 0.0734,
+          "val_precision": 0.1447
+        }
+      ],
+      "gradient_problem": "Insufficient epochs to diagnose.",
+      "checkpoint_path": "checkpoints/lstm_best.pt"
+    },
+    {
+      "model_name": "GRU",
+      "best_val_f1": 0.2150845401963628,
+      "best_val_recall": 0.20330034962367746,
+      "best_epoch": 2,
+      "total_time": 22.0,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.8828,
+          "grad_norm": 0.5693,
+          "embed_norm": 0.1015,
+          "val_f1": 0.0575,
+          "val_recall": 0.0318,
+          "val_precision": 0.3009
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5134,
+          "grad_norm": 0.2578,
+          "embed_norm": 0.172197,
+          "val_f1": 0.2151,
+          "val_recall": 0.2033,
+          "val_precision": 0.2614
+        }
+      ],
+      "gradient_problem": "Insufficient epochs to diagnose.",
+      "checkpoint_path": "checkpoints/gru_best.pt"
+    },
+    {
+      "model_name": "BiLSTM",
+      "best_val_f1": 0.13363428599687036,
+      "best_val_recall": 0.14803556134573395,
+      "best_epoch": 2,
+      "total_time": 38.7,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.8354,
+          "grad_norm": 0.4403,
+          "embed_norm": 0.08394,
+          "val_f1": 0.0046,
+          "val_recall": 0.0024,
+          "val_precision": 0.0476
+        },
+        {
+          "epoch": 2,
+          "loss": 0.5278,
+          "grad_norm": 0.2481,
+          "embed_norm": 0.159848,
+          "val_f1": 0.1336,
+          "val_recall": 0.148,
+          "val_precision": 0.1297
+        }
+      ],
+      "gradient_problem": "Insufficient epochs to diagnose.",
+      "checkpoint_path": "checkpoints/bilstm_best.pt"
+    },
+    {
+      "model_name": "BiLSTM+CRF",
+      "best_val_f1": 0.34395507403898146,
+      "best_val_recall": 0.3219361759533856,
+      "best_epoch": 2,
+      "total_time": 50.8,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 310.4758,
+          "grad_norm": 181.6027,
+          "embed_norm": 36.755192,
+          "val_f1": 0.0885,
+          "val_recall": 0.0633,
+          "val_precision": 0.3145
+        },
+        {
+          "epoch": 2,
+          "loss": 171.4806,
+          "grad_norm": 102.7381,
+          "embed_norm": 67.129853,
+          "val_f1": 0.344,
+          "val_recall": 0.3219,
+          "val_precision": 0.4216
+        }
+      ],
+      "gradient_problem": "Insufficient epochs to diagnose.",
+      "checkpoint_path": "checkpoints/bilstm_crf_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "RNN",
+      "macro_f1": 0.3026,
+      "macro_recall": 0.3114,
+      "invalid_bio": 109,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6363636363636364,
+          "recall": 0.3769230769230769,
+          "f1-score": 0.4734299516908213,
+          "support": 130
+        },
+        "ORG": {
+          "precision": 0.3103448275862069,
+          "recall": 0.06382978723404255,
+          "f1-score": 0.10588235294117647,
+          "support": 141
+        },
+        "PER": {
+          "precision": 0.24600638977635783,
+          "recall": 0.4935897435897436,
+          "f1-score": 0.32835820895522394,
+          "support": 156
+        }
+      }
+    },
+    {
+      "model_name": "LSTM",
+      "macro_f1": 0.0906,
+      "macro_recall": 0.0675,
+      "invalid_bio": 100,
+      "per_class": {
+        "LOC": {
+          "precision": 0.28125,
+          "recall": 0.13846153846153847,
+          "f1-score": 0.18556701030927836,
+          "support": 130
+        },
+        "ORG": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 141
+        },
+        "PER": {
+          "precision": 0.13157894736842105,
+          "recall": 0.0641025641025641,
+          "f1-score": 0.08620689655172413,
+          "support": 156
+        }
+      }
+    },
+    {
+      "model_name": "GRU",
+      "macro_f1": 0.182,
+      "macro_recall": 0.1703,
+      "invalid_bio": 100,
+      "per_class": {
+        "LOC": {
+          "precision": 0.3939393939393939,
+          "recall": 0.4,
+          "f1-score": 0.39694656488549623,
+          "support": 130
+        },
+        "ORG": {
+          "precision": 0.1,
+          "recall": 0.02127659574468085,
+          "f1-score": 0.03508771929824561,
+          "support": 141
+        },
+        "PER": {
+          "precision": 0.15555555555555556,
+          "recall": 0.08974358974358974,
+          "f1-score": 0.11382113821138211,
+          "support": 156
+        }
+      }
+    },
+    {
+      "model_name": "BiLSTM",
+      "macro_f1": 0.1091,
+      "macro_recall": 0.1346,
+      "invalid_bio": 8,
+      "per_class": {
+        "LOC": {
+          "precision": 0.24630541871921183,
+          "recall": 0.38461538461538464,
+          "f1-score": 0.30030030030030036,
+          "support": 130
+        },
+        "ORG": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1-score": 0.0,
+          "support": 141
+        },
+        "PER": {
+          "precision": 0.045454545454545456,
+          "recall": 0.019230769230769232,
+          "f1-score": 0.02702702702702703,
+          "support": 156
+        }
+      }
+    },
+    {
+      "model_name": "BiLSTM+CRF",
+      "macro_f1": 0.3258,
+      "macro_recall": 0.2888,
+      "invalid_bio": 31,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6716417910447762,
+          "recall": 0.34615384615384615,
+          "f1-score": 0.45685279187817257,
+          "support": 130
+        },
+        "ORG": {
+          "precision": 0.2894736842105263,
+          "recall": 0.07801418439716312,
+          "f1-score": 0.1229050279329609,
+          "support": 141
+        },
+        "PER": {
+          "precision": 0.3612565445026178,
+          "recall": 0.4423076923076923,
+          "f1-score": 0.3976945244956772,
+          "support": 156
+        }
+      }
+    }
+  ]
+}
