@@ -235,45 +235,52 @@ class Trainer:
         Train for up to `epochs` epochs with early stopping on val F1.
 
         Returns a results dict with:
-          - per_epoch: list of dicts with loss, grad norms, val metrics
+          - per_epoch: list of dicts with loss, grad norms, train/val metrics
           - best_val_f1, best_val_recall, best_epoch
           - total_time_seconds
           - gradient_problem: description of what we observed
         """
-        best_val_f1   = 0.0
-        best_epoch    = 0
-        no_improve    = 0
-        per_epoch     = []
-        start_time    = time.time()
+        best_val_f1    = 0.0
+        best_epoch     = 0
+        no_improve     = 0
+        per_epoch      = []
+        start_time     = time.time()
 
         checkpoint_path = f"{self.checkpoint_dir}/{self.model_name}_best.pt"
 
-        print(f"\n{'='*60}")
+        print(f"\n{'='*72}")
         print(f"Training {self.model_name}  |  device={DEVICE}")
-        print(f"{'='*60}")
+        print(f"{'='*72}")
         print(f"{'Epoch':>6}  {'Loss':>8}  {'GradNorm':>10}  "
-              f"{'EmbNorm':>10}  {'Val F1':>8}  {'Val Rec':>8}")
-        print("-" * 60)
+              f"{'EmbNorm':>10}  {'TrainF1':>8}  {'Val F1':>8}  {'Gap':>7}")
+        print("-" * 72)
 
         for epoch in range(1, epochs + 1):
             train_metrics = self._train_epoch(train_loader)
+            train_eval    = self._validate(train_loader)   # train F1
             val_metrics   = self._validate(val_loader)
+
+            gap = val_metrics["f1"] - train_eval["f1"]    # negative = overfit
 
             row = {
                 "epoch":          epoch,
                 "loss":           round(train_metrics["loss"], 4),
                 "grad_norm":      round(train_metrics["grad_norm_mean"], 4),
                 "embed_norm":     round(train_metrics["embed_norm_mean"], 6),
+                "train_f1":       round(train_eval["f1"], 4),
+                "train_recall":   round(train_eval["recall"], 4),
                 "val_f1":         round(val_metrics["f1"], 4),
                 "val_recall":     round(val_metrics["recall"], 4),
                 "val_precision":  round(val_metrics["precision"], 4),
+                "overfit_gap":    round(gap, 4),           # val_f1 - train_f1
             }
             per_epoch.append(row)
 
+            gap_str = f"{gap:+.4f}"
             print(
                 f"{epoch:>6}  {row['loss']:>8.4f}  "
                 f"{row['grad_norm']:>10.4f}  {row['embed_norm']:>10.6f}  "
-                f"{row['val_f1']:>8.4f}  {row['val_recall']:>8.4f}"
+                f"{row['train_f1']:>8.4f}  {row['val_f1']:>8.4f}  {gap_str:>7}"
             )
 
             # ── Early stopping ────────────────────────────────────────────
@@ -299,18 +306,30 @@ class Trainer:
               f"Epoch: {best_epoch}  "
               f"Time: {total_time:.1f}s")
 
+        # ── Overfitting summary ───────────────────────────────────────────
+        best_row  = per_epoch[best_epoch - 1]
+        train_f1  = best_row["train_f1"]
+        overfit   = best_row["overfit_gap"]          # val_f1 - train_f1
+        print(f"\nOverfit check @ best epoch {best_epoch}:")
+        print(f"  Train F1 : {train_f1:.4f}")
+        print(f"  Val   F1 : {best_val_f1:.4f}")
+        print(f"  Gap      : {overfit:+.4f}  "
+              f"({'generalising well' if overfit > -0.05 else 'overfitting — val << train'})")
+
         # ── Diagnose gradient behaviour ───────────────────────────────────
         gradient_problem = _diagnose_gradients(self.model_name, per_epoch)
 
         return {
-            "model_name":      self.model_name,
-            "best_val_f1":     best_val_f1,
-            "best_val_recall": best_val_recall,
-            "best_epoch":      best_epoch,
-            "total_time":      round(total_time, 1),
-            "per_epoch":       per_epoch,
+            "model_name":       self.model_name,
+            "best_val_f1":      best_val_f1,
+            "best_val_recall":  best_val_recall,
+            "best_train_f1":    train_f1,
+            "overfit_gap":      overfit,
+            "best_epoch":       best_epoch,
+            "total_time":       round(total_time, 1),
+            "per_epoch":        per_epoch,
             "gradient_problem": gradient_problem,
-            "checkpoint_path": checkpoint_path,
+            "checkpoint_path":  checkpoint_path,
         }
 
 
