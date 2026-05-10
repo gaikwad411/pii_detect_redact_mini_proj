@@ -148,5 +148,35 @@
         "support": 3730
       }
     }
+  },
+  {
+    "timestamp": "20260510_091539",
+    "model": "RNN",
+    "limit": 50000,
+    "epochs": 20,
+    "hidden_dim": 128,
+    "macro_f1": 0.5878,
+    "macro_recall": 0.6101,
+    "invalid_bio": 1803,
+    "per_class": {
+      "LOC": {
+        "precision": 0.6712293388429752,
+        "recall": 0.6945483698556921,
+        "f1-score": 0.6826897819805622,
+        "support": 3742
+      },
+      "ORG": {
+        "precision": 0.40825942350332595,
+        "recall": 0.41799091940976163,
+        "f1-score": 0.41306786315199095,
+        "support": 3524
+      },
+      "PER": {
+        "precision": 0.624009324009324,
+        "recall": 0.7176943699731904,
+        "f1-score": 0.667581047381546,
+        "support": 3730
+      }
+    }
   }
 ]

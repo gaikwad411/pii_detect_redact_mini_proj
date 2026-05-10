@@ -178,6 +178,9 @@ CPU training tips:
                         help="Early stopping patience (default: 3 for CPU)")
     parser.add_argument("--batch",     type=int, default=16,
                         help="Batch size (default: 16 for CPU; use 32+ on GPU)")
+    parser.add_argument("--num-workers", type=int, default=0,
+                        help="DataLoader workers (default: 0 for Windows CPU; "
+                             "use 4 on Linux/GCP)")
     parser.add_argument("--hidden-dim", type=int, default=128,
                         help="RNN/LSTM/GRU hidden size (default: 128 for CPU; "
                              "use 256 on GPU)")
@@ -224,13 +227,13 @@ def main():
     # ── DataLoaders ───────────────────────────────────────────────────────
     train_loader = make_dataloader(train_ex, vocab, label_encoder,
                                    batch_size=args.batch, shuffle=True,
-                                   num_workers=0)   # num_workers=0 required on CPU
+                                   num_workers=args.num_workers)
     val_loader   = make_dataloader(val_ex,   vocab, label_encoder,
                                    batch_size=args.batch, shuffle=False,
-                                   num_workers=0)
+                                   num_workers=args.num_workers)
     test_loader  = make_dataloader(test_ex,  vocab, label_encoder,
                                    batch_size=args.batch, shuffle=False,
-                                   num_workers=0)
+                                   num_workers=args.num_workers)
 
     # ── Train all models ───────────────────────────────────────────────────
     os.makedirs(args.checkpoint_dir, exist_ok=True)
