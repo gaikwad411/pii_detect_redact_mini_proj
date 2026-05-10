@@ -178,5 +178,35 @@
         "support": 3730
       }
     }
+  },
+  {
+    "timestamp": "20260510_124558",
+    "model": "BiLSTM+CRF",
+    "limit": 50000,
+    "epochs": 20,
+    "hidden_dim": 128,
+    "macro_f1": 0.7061,
+    "macro_recall": 0.685,
+    "invalid_bio": 0,
+    "per_class": {
+      "LOC": {
+        "precision": 0.7475143903715332,
+        "recall": 0.7634954569748797,
+        "f1-score": 0.7554204124801692,
+        "support": 3742
+      },
+      "ORG": {
+        "precision": 0.6763470958712386,
+        "recall": 0.5485244040862656,
+        "f1-score": 0.6057662174866814,
+        "support": 3524
+      },
+      "PER": {
+        "precision": 0.771651350598719,
+        "recall": 0.7428954423592493,
+        "f1-score": 0.7570004097800846,
+        "support": 3730
+      }
+    }
   }
 ]

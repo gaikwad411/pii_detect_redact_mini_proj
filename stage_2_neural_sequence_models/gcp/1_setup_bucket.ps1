@@ -1,21 +1,17 @@
-# =============================================================================
-# STEP 1 — One-time setup: create GCS bucket and upload dataset
+# STEP 1 - One-time setup: create GCS bucket and upload dataset
 #
 # Run ONCE from your local Windows machine before provisioning VMs.
 #
 # Prerequisites:
 #   gcloud auth login
 #   gcloud config set project YOUR_PROJECT_ID
-# =============================================================================
 
 $ErrorActionPreference = "Stop"
 
-# ── CONFIGURE THESE ───────────────────────────────────────────────────────────
-$PROJECT_ID   = (gcloud config get-value project)
-$BUCKET       = "gs://$PROJECT_ID-pii-training"
-$REGION       = "us-central1"
-$LOCAL_DATASET = "$PSScriptRoot\..\..\..\datasets\hi_IndicNER_v1.0\hi_train.json"
-# ─────────────────────────────────────────────────────────────────────────────
+$PROJECT_ID    = (gcloud config get-value project)
+$BUCKET        = "gs://$PROJECT_ID-pii-training"
+$REGION        = "us-central1"
+$LOCAL_DATASET = (Resolve-Path "$PSScriptRoot\..\..\datasets\hi_IndicNER_v1.0\hi_train.json").Path
 
 Write-Host "Project  : $PROJECT_ID"
 Write-Host "Bucket   : $BUCKET"
@@ -28,7 +24,12 @@ if (-not (Test-Path $LOCAL_DATASET)) {
 }
 
 # Create bucket if it doesn't exist
-$bucketExists = (gsutil ls $BUCKET 2>$null) -ne $null
+$bucketExists = $false
+try {
+    gsutil ls $BUCKET 2>&1 | Out-Null
+    $bucketExists = ($LASTEXITCODE -eq 0)
+} catch { }
+
 if ($bucketExists) {
     Write-Host "[OK] Bucket already exists: $BUCKET"
 } else {
