@@ -118,35 +118,5 @@
         "support": 3730
       }
     }
-  },
-  {
-    "timestamp": "20260510_065715",
-    "model": "BiLSTM+CRF",
-    "limit": 50000,
-    "epochs": 20,
-    "hidden_dim": 128,
-    "macro_f1": 0.7101,
-    "macro_recall": 0.7017,
-    "invalid_bio": 0,
-    "per_class": {
-      "LOC": {
-        "precision": 0.7527501309586171,
-        "recall": 0.7680384820951363,
-        "f1-score": 0.7603174603174603,
-        "support": 3742
-      },
-      "ORG": {
-        "precision": 0.630978093181117,
-        "recall": 0.5803064699205448,
-        "f1-score": 0.6045824094604582,
-        "support": 3524
-      },
-      "PER": {
-        "precision": 0.7742731760833791,
-        "recall": 0.7568364611260053,
-        "f1-score": 0.7654555314533622,
-        "support": 3730
-      }
-    }
   }
 ]

@@ -1,0 +1,122 @@
+{
+  "timestamp": "20260509_224412",
+  "models": [
+    "lstm"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "LSTM",
+      "best_val_f1": 0.5968252474004827,
+      "best_val_recall": 0.6285982856311277,
+      "best_epoch": 5,
+      "total_time": 8798.4,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.3753,
+          "grad_norm": 0.2735,
+          "embed_norm": 0.154676,
+          "val_f1": 0.5717,
+          "val_recall": 0.5796,
+          "val_precision": 0.5648
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2594,
+          "grad_norm": 0.2216,
+          "embed_norm": 0.137545,
+          "val_f1": 0.5945,
+          "val_recall": 0.6043,
+          "val_precision": 0.5861
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2334,
+          "grad_norm": 0.2065,
+          "embed_norm": 0.126397,
+          "val_f1": 0.5957,
+          "val_recall": 0.5982,
+          "val_precision": 0.5945
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2123,
+          "grad_norm": 0.1985,
+          "embed_norm": 0.123272,
+          "val_f1": 0.5955,
+          "val_recall": 0.6309,
+          "val_precision": 0.5641
+        },
+        {
+          "epoch": 5,
+          "loss": 0.1937,
+          "grad_norm": 0.1948,
+          "embed_norm": 0.124248,
+          "val_f1": 0.5968,
+          "val_recall": 0.6286,
+          "val_precision": 0.571
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1773,
+          "grad_norm": 0.1909,
+          "embed_norm": 0.123727,
+          "val_f1": 0.5953,
+          "val_recall": 0.6355,
+          "val_precision": 0.5607
+        },
+        {
+          "epoch": 7,
+          "loss": 0.163,
+          "grad_norm": 0.1864,
+          "embed_norm": 0.123729,
+          "val_f1": 0.5937,
+          "val_recall": 0.6191,
+          "val_precision": 0.5712
+        },
+        {
+          "epoch": 8,
+          "loss": 0.15,
+          "grad_norm": 0.1849,
+          "embed_norm": 0.124398,
+          "val_f1": 0.5878,
+          "val_recall": 0.6269,
+          "val_precision": 0.5548
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in lstm. Embedding gradient norm ratio: 80.4%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/lstm_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "LSTM",
+      "macro_f1": 0.5967,
+      "macro_recall": 0.6246,
+      "invalid_bio": 1438,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6065114273393705,
+          "recall": 0.7517370390165686,
+          "f1-score": 0.6713603818615752,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.42761627906976746,
+          "recall": 0.4174233825198638,
+          "f1-score": 0.42245835726593917,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.6883184913567313,
+          "recall": 0.7045576407506703,
+          "f1-score": 0.6963434022257551,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

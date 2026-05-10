@@ -1,0 +1,113 @@
+{
+  "timestamp": "20260510_010429",
+  "models": [
+    "bilstm"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "BiLSTM",
+      "best_val_f1": 0.6729121115978023,
+      "best_val_recall": 0.6706012177449603,
+      "best_epoch": 4,
+      "total_time": 5277.0,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.3295,
+          "grad_norm": 0.2803,
+          "embed_norm": 0.176317,
+          "val_f1": 0.6526,
+          "val_recall": 0.6457,
+          "val_precision": 0.6632
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2175,
+          "grad_norm": 0.2266,
+          "embed_norm": 0.148581,
+          "val_f1": 0.6683,
+          "val_recall": 0.6648,
+          "val_precision": 0.6726
+        },
+        {
+          "epoch": 3,
+          "loss": 0.1869,
+          "grad_norm": 0.2083,
+          "embed_norm": 0.138082,
+          "val_f1": 0.6676,
+          "val_recall": 0.6808,
+          "val_precision": 0.6583
+        },
+        {
+          "epoch": 4,
+          "loss": 0.1625,
+          "grad_norm": 0.1995,
+          "embed_norm": 0.135394,
+          "val_f1": 0.6729,
+          "val_recall": 0.6706,
+          "val_precision": 0.6762
+        },
+        {
+          "epoch": 5,
+          "loss": 0.1408,
+          "grad_norm": 0.1927,
+          "embed_norm": 0.13388,
+          "val_f1": 0.6668,
+          "val_recall": 0.6801,
+          "val_precision": 0.6567
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1211,
+          "grad_norm": 0.1849,
+          "embed_norm": 0.130749,
+          "val_f1": 0.6595,
+          "val_recall": 0.6597,
+          "val_precision": 0.6601
+        },
+        {
+          "epoch": 7,
+          "loss": 0.1049,
+          "grad_norm": 0.1806,
+          "embed_norm": 0.128937,
+          "val_f1": 0.6541,
+          "val_recall": 0.6578,
+          "val_precision": 0.6507
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in bilstm. Embedding gradient norm ratio: 73.1%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/bilstm_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "BiLSTM",
+      "macro_f1": 0.6817,
+      "macro_recall": 0.6797,
+      "invalid_bio": 477,
+      "per_class": {
+        "LOC": {
+          "precision": 0.7383202099737532,
+          "recall": 0.7517370390165686,
+          "f1-score": 0.744968220338983,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.5817786069651741,
+          "recall": 0.5309307604994324,
+          "f1-score": 0.555192878338279,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.7335586171042371,
+          "recall": 0.7565683646112601,
+          "f1-score": 0.7448858387224495,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}
