@@ -1,0 +1,148 @@
+{
+  "timestamp": "20260510_085558",
+  "models": [
+    "bilstm_crf"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "BiLSTM+CRF",
+      "best_val_f1": 0.7004307298810186,
+      "best_val_recall": 0.6738906742632188,
+      "best_train_f1": 0.7981,
+      "overfit_gap": -0.0977,
+      "best_epoch": 3,
+      "total_time": 2282.7,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 224.8876,
+          "grad_norm": 163.9154,
+          "embed_norm": 96.069778,
+          "train_f1": 0.7308,
+          "train_recall": 0.705,
+          "val_f1": 0.685,
+          "val_recall": 0.6533,
+          "val_precision": 0.7239,
+          "overfit_gap": -0.0458
+        },
+        {
+          "epoch": 2,
+          "loss": 115.7632,
+          "grad_norm": 113.7003,
+          "embed_norm": 73.614219,
+          "train_f1": 0.7642,
+          "train_recall": 0.7445,
+          "val_f1": 0.6891,
+          "val_recall": 0.6634,
+          "val_precision": 0.7175,
+          "overfit_gap": -0.0751
+        },
+        {
+          "epoch": 3,
+          "loss": 92.1292,
+          "grad_norm": 99.5987,
+          "embed_norm": 63.484744,
+          "train_f1": 0.7981,
+          "train_recall": 0.7805,
+          "val_f1": 0.7004,
+          "val_recall": 0.6739,
+          "val_precision": 0.7313,
+          "overfit_gap": -0.0977
+        },
+        {
+          "epoch": 4,
+          "loss": 78.409,
+          "grad_norm": 94.2945,
+          "embed_norm": 60.586693,
+          "train_f1": 0.8197,
+          "train_recall": 0.8135,
+          "val_f1": 0.6995,
+          "val_recall": 0.6885,
+          "val_precision": 0.7132,
+          "overfit_gap": -0.1202
+        },
+        {
+          "epoch": 5,
+          "loss": 67.9966,
+          "grad_norm": 91.0817,
+          "embed_norm": 59.857025,
+          "train_f1": 0.8422,
+          "train_recall": 0.8321,
+          "val_f1": 0.6977,
+          "val_recall": 0.682,
+          "val_precision": 0.7166,
+          "overfit_gap": -0.1445
+        },
+        {
+          "epoch": 6,
+          "loss": 58.8053,
+          "grad_norm": 87.0002,
+          "embed_norm": 59.50261,
+          "train_f1": 0.8629,
+          "train_recall": 0.8445,
+          "val_f1": 0.6922,
+          "val_recall": 0.6661,
+          "val_precision": 0.724,
+          "overfit_gap": -0.1707
+        },
+        {
+          "epoch": 7,
+          "loss": 50.8893,
+          "grad_norm": 85.4091,
+          "embed_norm": 59.855017,
+          "train_f1": 0.8815,
+          "train_recall": 0.8753,
+          "val_f1": 0.6862,
+          "val_recall": 0.6761,
+          "val_precision": 0.697,
+          "overfit_gap": -0.1953
+        },
+        {
+          "epoch": 8,
+          "loss": 43.9951,
+          "grad_norm": 83.4547,
+          "embed_norm": 59.873869,
+          "train_f1": 0.9008,
+          "train_recall": 0.8947,
+          "val_f1": 0.684,
+          "val_recall": 0.673,
+          "val_precision": 0.6956,
+          "overfit_gap": -0.2168
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in bilstm_crf. Embedding gradient norm ratio: 62.3%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/bilstm_crf_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "BiLSTM+CRF",
+      "macro_f1": 0.7065,
+      "macro_recall": 0.6818,
+      "invalid_bio": 0,
+      "per_class": {
+        "LOC": {
+          "precision": 0.7498020585906572,
+          "recall": 0.759219668626403,
+          "f1-score": 0.7544814765635374,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.6572675394427661,
+          "recall": 0.5556186152099887,
+          "f1-score": 0.602183607565739,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.7984178142396718,
+          "recall": 0.7305630026809652,
+          "f1-score": 0.7629847403051939,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

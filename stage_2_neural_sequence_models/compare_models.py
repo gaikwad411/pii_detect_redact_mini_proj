@@ -33,7 +33,7 @@ MOTIVATIONS = {
 
 
 def load_summary(path: Path) -> list[dict]:
-    rows = json.loads(path.read_text(encoding="utf-8"))
+    rows = json.loads(path.read_text(encoding="utf-8-sig"))
     # Keep only the latest run per model (last occurrence wins)
     seen = {}
     for row in rows:
@@ -141,10 +141,30 @@ def print_stage1_comparison(rows: list[dict]) -> None:
     print("=" * 60)
 
 
+def print_simple_table(rows: list[dict]) -> None:
+    STAGE1_F1     = 0.2183
+    STAGE1_RECALL = 0.1591
+
+    print("\n" + "=" * 70)
+    print("RESULTS TABLE — Stage 1 + Stage 2")
+    print("=" * 70)
+    print(f"  {'Model':<22} {'Approach':<12} {'Macro F1':>9} {'Recall':>9} {'Inv BIO':>8}")
+    print("-" * 70)
+    print(f"  {'Regex (Stage 1)':<22} {'Rule-based':<12} {STAGE1_F1:>9.4f} {STAGE1_RECALL:>9.4f} {'N/A':>8}")
+    print("-" * 70)
+    for row in rows:
+        inv = row.get("invalid_bio", "N/A")
+        inv_str = str(inv) if inv != "N/A" else "N/A"
+        print(f"  {row['model']:<22} {'Neural':<12} {row['macro_f1']:>9.4f} {row['macro_recall']:>9.4f} {inv_str:>8}")
+    print("=" * 70)
+
+
 def main():
     parser = argparse.ArgumentParser(description="Stage 2 model comparison")
     parser.add_argument("--summary", default="results/summary.json",
                         help="Path to summary.json (default: results/summary.json)")
+    parser.add_argument("--simple", action="store_true",
+                        help="Print simple results table only (with Stage 1 regex)")
     args = parser.parse_args()
 
     path = Path(args.summary)
@@ -155,6 +175,10 @@ def main():
     rows = load_summary(path)
     if not rows:
         print("[ERROR] No model results found in summary.json.")
+        return
+
+    if args.simple:
+        print_simple_table(rows)
         return
 
     print_main_table(rows)

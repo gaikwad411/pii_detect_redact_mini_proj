@@ -1,0 +1,172 @@
+{
+  "timestamp": "20260510_072632",
+  "models": [
+    "gru"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "GRU",
+      "best_val_f1": 0.5967612648813594,
+      "best_val_recall": 0.6113901244408821,
+      "best_train_f1": 0.7091,
+      "overfit_gap": -0.1124,
+      "best_epoch": 5,
+      "total_time": 1762.2,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.3815,
+          "grad_norm": 0.2423,
+          "embed_norm": 0.146828,
+          "train_f1": 0.6277,
+          "train_recall": 0.6411,
+          "val_f1": 0.5769,
+          "val_recall": 0.5834,
+          "val_precision": 0.5708,
+          "overfit_gap": -0.0507
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2601,
+          "grad_norm": 0.2081,
+          "embed_norm": 0.137248,
+          "train_f1": 0.6477,
+          "train_recall": 0.6422,
+          "val_f1": 0.5828,
+          "val_recall": 0.5691,
+          "val_precision": 0.5974,
+          "overfit_gap": -0.065
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2336,
+          "grad_norm": 0.1994,
+          "embed_norm": 0.130958,
+          "train_f1": 0.6725,
+          "train_recall": 0.6984,
+          "val_f1": 0.5892,
+          "val_recall": 0.6089,
+          "val_precision": 0.5708,
+          "overfit_gap": -0.0833
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2138,
+          "grad_norm": 0.1985,
+          "embed_norm": 0.130691,
+          "train_f1": 0.689,
+          "train_recall": 0.7041,
+          "val_f1": 0.5923,
+          "val_recall": 0.5995,
+          "val_precision": 0.586,
+          "overfit_gap": -0.0967
+        },
+        {
+          "epoch": 5,
+          "loss": 0.1957,
+          "grad_norm": 0.1952,
+          "embed_norm": 0.130156,
+          "train_f1": 0.7091,
+          "train_recall": 0.7307,
+          "val_f1": 0.5968,
+          "val_recall": 0.6114,
+          "val_precision": 0.5829,
+          "overfit_gap": -0.1124
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1799,
+          "grad_norm": 0.1897,
+          "embed_norm": 0.127675,
+          "train_f1": 0.7127,
+          "train_recall": 0.7413,
+          "val_f1": 0.5878,
+          "val_recall": 0.6152,
+          "val_precision": 0.5647,
+          "overfit_gap": -0.1249
+        },
+        {
+          "epoch": 7,
+          "loss": 0.1666,
+          "grad_norm": 0.1879,
+          "embed_norm": 0.127166,
+          "train_f1": 0.7405,
+          "train_recall": 0.7568,
+          "val_f1": 0.5894,
+          "val_recall": 0.6015,
+          "val_precision": 0.5779,
+          "overfit_gap": -0.1511
+        },
+        {
+          "epoch": 8,
+          "loss": 0.1557,
+          "grad_norm": 0.1856,
+          "embed_norm": 0.125855,
+          "train_f1": 0.7484,
+          "train_recall": 0.7703,
+          "val_f1": 0.586,
+          "val_recall": 0.606,
+          "val_precision": 0.5687,
+          "overfit_gap": -0.1625
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1451,
+          "grad_norm": 0.1839,
+          "embed_norm": 0.124987,
+          "train_f1": 0.7714,
+          "train_recall": 0.787,
+          "val_f1": 0.5819,
+          "val_recall": 0.5979,
+          "val_precision": 0.5669,
+          "overfit_gap": -0.1895
+        },
+        {
+          "epoch": 10,
+          "loss": 0.1364,
+          "grad_norm": 0.1817,
+          "embed_norm": 0.123789,
+          "train_f1": 0.7766,
+          "train_recall": 0.7865,
+          "val_f1": 0.5697,
+          "val_recall": 0.5766,
+          "val_precision": 0.564,
+          "overfit_gap": -0.2069
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in gru. Embedding gradient norm ratio: 84.3%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/gru_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "GRU",
+      "macro_f1": 0.5978,
+      "macro_recall": 0.6111,
+      "invalid_bio": 1435,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6645569620253164,
+          "recall": 0.7014965259219669,
+          "f1-score": 0.6825273010920436,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.40596696856686204,
+          "recall": 0.43246311010215666,
+          "f1-score": 0.4187963726298434,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.6852338413032054,
+          "recall": 0.6991957104557641,
+          "f1-score": 0.692144373673036,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

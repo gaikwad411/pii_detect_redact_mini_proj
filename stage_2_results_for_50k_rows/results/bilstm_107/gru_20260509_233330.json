@@ -1,0 +1,104 @@
+{
+  "timestamp": "20260509_233330",
+  "models": [
+    "gru"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "GRU",
+      "best_val_f1": 0.6011812049530104,
+      "best_val_recall": 0.6176818598451347,
+      "best_epoch": 3,
+      "total_time": 2614.0,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.3511,
+          "grad_norm": 0.3,
+          "embed_norm": 0.196916,
+          "val_f1": 0.5701,
+          "val_recall": 0.6168,
+          "val_precision": 0.533
+        },
+        {
+          "epoch": 2,
+          "loss": 0.255,
+          "grad_norm": 0.2566,
+          "embed_norm": 0.160402,
+          "val_f1": 0.5888,
+          "val_recall": 0.6108,
+          "val_precision": 0.5717
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2299,
+          "grad_norm": 0.2449,
+          "embed_norm": 0.146998,
+          "val_f1": 0.6012,
+          "val_recall": 0.6177,
+          "val_precision": 0.586
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2084,
+          "grad_norm": 0.2395,
+          "embed_norm": 0.144113,
+          "val_f1": 0.5943,
+          "val_recall": 0.5901,
+          "val_precision": 0.6006
+        },
+        {
+          "epoch": 5,
+          "loss": 0.1894,
+          "grad_norm": 0.2344,
+          "embed_norm": 0.142501,
+          "val_f1": 0.5849,
+          "val_recall": 0.6187,
+          "val_precision": 0.5567
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1732,
+          "grad_norm": 0.23,
+          "embed_norm": 0.141593,
+          "val_f1": 0.5955,
+          "val_recall": 0.6258,
+          "val_precision": 0.5693
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in gru. Embedding gradient norm ratio: 71.9%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/gru_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "GRU",
+      "macro_f1": 0.5964,
+      "macro_recall": 0.611,
+      "invalid_bio": 1831,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6679418515684774,
+          "recall": 0.6998931052912881,
+          "f1-score": 0.6835443037974684,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.3825232938806346,
+          "recall": 0.431044267877412,
+          "f1-score": 0.40533689126084055,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.6984,
+          "recall": 0.7021447721179624,
+          "f1-score": 0.7002673796791443,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

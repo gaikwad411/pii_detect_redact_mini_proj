@@ -1,0 +1,131 @@
+{
+  "timestamp": "20260509_193655",
+  "models": [
+    "rnn"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "RNN",
+      "best_val_f1": 0.5894702446904736,
+      "best_val_recall": 0.6058042037528836,
+      "best_epoch": 6,
+      "total_time": 3668.0,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.351,
+          "grad_norm": 0.4069,
+          "embed_norm": 0.193666,
+          "val_f1": 0.5714,
+          "val_recall": 0.5596,
+          "val_precision": 0.5847
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2649,
+          "grad_norm": 0.3515,
+          "embed_norm": 0.156842,
+          "val_f1": 0.5874,
+          "val_recall": 0.5919,
+          "val_precision": 0.5841
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2444,
+          "grad_norm": 0.3459,
+          "embed_norm": 0.142502,
+          "val_f1": 0.5839,
+          "val_recall": 0.6094,
+          "val_precision": 0.5613
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2311,
+          "grad_norm": 0.3488,
+          "embed_norm": 0.139471,
+          "val_f1": 0.5788,
+          "val_recall": 0.6348,
+          "val_precision": 0.5341
+        },
+        {
+          "epoch": 5,
+          "loss": 0.2196,
+          "grad_norm": 0.3521,
+          "embed_norm": 0.138555,
+          "val_f1": 0.5877,
+          "val_recall": 0.6022,
+          "val_precision": 0.5746
+        },
+        {
+          "epoch": 6,
+          "loss": 0.2095,
+          "grad_norm": 0.3497,
+          "embed_norm": 0.137112,
+          "val_f1": 0.5895,
+          "val_recall": 0.6058,
+          "val_precision": 0.5751
+        },
+        {
+          "epoch": 7,
+          "loss": 0.2013,
+          "grad_norm": 0.3542,
+          "embed_norm": 0.139107,
+          "val_f1": 0.5869,
+          "val_recall": 0.6126,
+          "val_precision": 0.5637
+        },
+        {
+          "epoch": 8,
+          "loss": 0.1946,
+          "grad_norm": 0.358,
+          "embed_norm": 0.142496,
+          "val_f1": 0.5791,
+          "val_recall": 0.6035,
+          "val_precision": 0.5604
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1878,
+          "grad_norm": 0.3576,
+          "embed_norm": 0.144544,
+          "val_f1": 0.5784,
+          "val_recall": 0.6106,
+          "val_precision": 0.5498
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in rnn. Embedding gradient norm ratio: 74.6%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/rnn_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "RNN",
+      "macro_f1": 0.5918,
+      "macro_recall": 0.6058,
+      "invalid_bio": 1652,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6737461617195496,
+          "recall": 0.7036344200962052,
+          "f1-score": 0.6883660130718955,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.41951951951951955,
+          "recall": 0.3964245175936436,
+          "f1-score": 0.40764517070323897,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.6451301832208293,
+          "recall": 0.717426273458445,
+          "f1-score": 0.6793602437166794,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

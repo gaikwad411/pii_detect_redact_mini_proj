@@ -1,39 +1,38 @@
 """
 embeddings.py
 -------------
-Loads pretrained FastText Hindi word vectors and builds an embedding
+Loads pretrained FastText English word vectors and builds an embedding
 matrix aligned with our Vocabulary.
 
-WHY GENSIM INSTEAD OF THE FASTTEXT PACKAGE:
-  The official `fasttext` Python package does not provide pre-built
-  Windows wheels for Python 3.13. It requires compiling C++ source with
-  MSVC, which fails due to missing `ssize_t` and C++17 issues.
+TWO LOADERS:
+  1. FastTextBinLoader  — uses the native `fasttext` package (.bin format)
+       - Supports OOV subword vectors: every token gets a vector, even
+         unseen words, via character n-gram composition
+       - Requires `fasttext` pip package (compiles from C++ — works on Linux,
+         fails on Windows/Python 3.13 due to missing ssize_t / C++17 issues)
+       - Use this on GCP Debian VMs
 
-  We use `gensim` instead, which:
-    - Has pre-built wheels for all platforms including Windows + Python 3.13
-    - Loads the FastText .vec format natively via KeyedVectors
-    - No compilation required — pure pip install
+  2. FastTextVecLoader  — uses `gensim` (.vec format)
+       - No OOV support: unseen tokens get zero vectors
+       - Works on all platforms including Windows + Python 3.13
+       - Use this for local Windows development
 
-FILE TO DOWNLOAD:
-  Go to: https://fasttext.cc/docs/en/crawl-vectors.html
-  Find "Hindi" and download: cc.hi.300.vec.gz   (~700MB compressed)
+FILES TO DOWNLOAD (Hindi):
+  .bin  (OOV support, ~700MB compressed → ~1.8GB): cc.hi.300.bin
+  .vec  (no OOV,     ~2.2GB uncompressed): cc.hi.300.vec.gz → gunzip
 
-  Extract it (gives you cc.hi.300.vec, ~2.2GB), then pass:
-    --fasttext path/to/cc.hi.300.vec
+  Source: https://fasttext.cc/docs/en/crawl-vectors.html  (Hindi / hi row)
 
-  Note on .bin vs .vec:
-    The .bin format supports OOV subword vectors (better for Hindi morphology)
-    but requires the fasttext package which won't build on Windows/Python 3.13.
-    The .vec format has no OOV support — unseen tokens get zero vectors —
-    but coverage on a 1M sentence Hindi corpus is still very high (~85-90%).
+  For GCP: upload once to your bucket, then VMs download from there:
+    gsutil cp cc.hi.300.bin gs://<bucket>/embeddings/cc.hi.300.bin
 
-WHY PRETRAINED EMBEDDINGS MATTER (for your professor):
+WHY PRETRAINED EMBEDDINGS MATTER:
   - Random init: each token starts as noise, learns only from NER labels
-  - FastText .vec: each token starts with 300-dim semantic meaning from
-    157 billion tokens of Hindi text — the model only needs to learn
-    how to use that meaning for NER, not build it from scratch
-  - This is the difference between learning "अहमद is a name" vs
-    learning "अहमद means something similar to other names it co-occurs with"
+  - FastText .bin: each token starts with 300-dim semantic meaning trained
+    on Hindi text — the model only needs to learn how to use that meaning
+    for NER, not build it from scratch
+  - OOV benefit: Hindi has rich morphology — unseen inflected forms are
+    composed from subword n-grams, so coverage stays near 100%
 """
 
 import numpy as np
@@ -43,7 +42,74 @@ FASTTEXT_DIM = 300
 
 
 # ---------------------------------------------------------------------------
-# Gensim-based loader (.vec format)
+# Loader 1: native fasttext package (.bin) — Linux / GCP
+# ---------------------------------------------------------------------------
+
+class FastTextBinLoader:
+    """
+    Loads FastText .bin model using the native `fasttext` package.
+
+    Advantages over .vec:
+      - get_word_vector() uses character n-gram subwords for OOV tokens
+      - Every token in your vocab gets a non-zero vector
+      - No coverage gaps
+
+    Requires: pip install fasttext  (needs build-essential on Debian)
+    """
+
+    def __init__(self, bin_path: str):
+        self.bin_path = Path(bin_path)
+        self._model = None
+
+    def _load(self):
+        if self._model is not None:
+            return
+        try:
+            import fasttext
+        except ImportError:
+            raise ImportError(
+                "fasttext package not found. On Debian: "
+                "apt-get install build-essential && pip install fasttext"
+            )
+        print(f"[INFO] Loading FastText model from {self.bin_path}")
+        # suppress fasttext's own progress output
+        import fasttext.FastText as _ft
+        _ft.eprint = lambda *a, **k: None
+        self._model = fasttext.load_model(str(self.bin_path))
+        dim = self._model.get_dimension()
+        print(f"[INFO] Loaded FastText model  dim={dim}")
+
+    def build_matrix(self, vocab) -> np.ndarray:
+        """
+        Build embedding matrix of shape (vocab_size, 300).
+
+        Row 0 (<PAD>) -> all zeros
+        Row 1 (<UNK>) -> mean of all token vectors
+        Row i         -> fasttext.get_word_vector(token)  — always non-zero
+        """
+        self._load()
+        dim        = self._model.get_dimension()
+        vocab_size = len(vocab)
+        matrix     = np.zeros((vocab_size, dim), dtype=np.float32)
+
+        for idx, token in enumerate(vocab.idx2token):
+            if idx == 0:    # <PAD> — keep zero
+                continue
+            if idx == 1:    # <UNK> — fill after loop
+                continue
+            matrix[idx] = self._model.get_word_vector(token)
+
+        # <UNK> = mean of all token vectors
+        matrix[1] = matrix[2:].mean(axis=0)
+
+        n_tokens = vocab_size - 2
+        print(f"[INFO] FastText (bin): {n_tokens:,}/{n_tokens:,} tokens covered "
+              f"(100% via subword OOV)")
+        return matrix
+
+
+# ---------------------------------------------------------------------------
+# Loader 2: gensim KeyedVectors (.vec) — cross-platform fallback
 # ---------------------------------------------------------------------------
 
 class FastTextVecLoader:
@@ -65,7 +131,7 @@ class FastTextVecLoader:
             return
         from gensim.models import KeyedVectors
         print(f"[INFO] Loading FastText vectors from {self.vec_path}")
-        print(f"       (This takes 2-5 minutes for a 2GB .vec file — one time only)")
+        print(f"       (This takes 2-5 minutes for a large .vec file — one time only)")
         self._kv = KeyedVectors.load_word2vec_format(
             str(self.vec_path),
             binary=False,
@@ -87,24 +153,23 @@ class FastTextVecLoader:
         found = 0
 
         for idx, token in enumerate(vocab.idx2token):
-            if idx == 0:        # <PAD> — keep zero
+            if idx == 0:    # <PAD> — keep zero
                 continue
-            if idx == 1:        # <UNK> — fill after loop
+            if idx == 1:    # <UNK> — fill after loop
                 continue
             if token in self._kv:
                 matrix[idx] = self._kv[token]
                 found += 1
 
-        # <UNK> = mean of all found vectors — better than random
         if found > 0:
             matrix[1] = matrix[2:].mean(axis=0)
 
         coverage = found / max(vocab_size - 2, 1) * 100
-        print(f"[INFO] Embedding coverage: {found:,}/{vocab_size-2:,} tokens "
+        print(f"[INFO] FastText (vec): {found:,}/{vocab_size-2:,} tokens "
               f"({coverage:.1f}%)")
         if coverage < 50:
-            print(f"[WARN] Coverage below 50% — check that you downloaded "
-                  f"the Hindi file (cc.hi.300.vec), not another language.")
+            print(f"[WARN] Coverage below 50% — check you downloaded the English "
+                  f"file (cc.en.300.vec), not another language.")
         return matrix
 
 
@@ -113,10 +178,7 @@ class FastTextVecLoader:
 # ---------------------------------------------------------------------------
 
 def random_embedding_matrix(vocab_size: int, dim: int = FASTTEXT_DIM) -> np.ndarray:
-    """
-    Xavier-uniform random init — used when no .vec file is provided.
-    Visibly worse results, but lets you run without downloading 2GB.
-    """
+    """Xavier-uniform random init — used when no FastText file is provided."""
     std    = np.sqrt(2.0 / (vocab_size + dim))
     matrix = np.random.normal(0, std, (vocab_size, dim)).astype(np.float32)
     matrix[0] = 0   # <PAD> stays zero
@@ -133,40 +195,32 @@ def load_embeddings(
     embedding_dim: int = FASTTEXT_DIM,
 ) -> np.ndarray:
     """
-    Load pretrained embeddings if path is given and file exists,
-    otherwise fall back to random init.
+    Load pretrained embeddings if path is given and file exists.
+    Auto-detects format from file extension:
+      .bin  -> FastTextBinLoader  (fasttext package, OOV via subwords)
+      .vec  -> FastTextVecLoader  (gensim, no OOV)
+    Falls back to random Xavier init if no path given or file missing.
 
-    Parameters
-    ----------
-    vocab         : Vocabulary object
-    fasttext_path : path to cc.hi.300.vec  (NOT .bin on Windows)
-    embedding_dim : only used for random fallback
-
-    Returns
-    -------
-    numpy array of shape (vocab_size, 300)
+    Returns numpy array of shape (vocab_size, 300).
     """
     if fasttext_path:
         p = Path(fasttext_path)
         if not p.exists():
-            print(f"[WARN] FastText file not found at: {p}")
-        elif p.suffix != ".vec":
-            print(
-                f"[WARN] On Windows/Python 3.13 only .vec format is supported.\n"
-                f"       Download cc.hi.300.vec.gz directly from:\n"
-                f"       https://fasttext.cc/docs/en/crawl-vectors.html"
-            )
-        else:
+            print(f"[WARN] FastText file not found at: {p} — falling back to random init")
+        elif p.suffix == ".bin":
+            loader = FastTextBinLoader(str(p))
+            return loader.build_matrix(vocab)
+        elif p.suffix == ".vec":
             loader = FastTextVecLoader(str(p))
             return loader.build_matrix(vocab)
+        else:
+            print(f"[WARN] Unknown FastText format '{p.suffix}' — expected .bin or .vec")
 
     print(
-        "\n[WARNING] No FastText .vec file provided — using random embeddings.\n"
-        "  To use pretrained vectors:\n"
-        "    1. Download cc.hi.300.vec.gz from:\n"
-        "       https://fasttext.cc/docs/en/crawl-vectors.html  (Hindi section)\n"
-        "    2. Extract: use 7-zip or 'gunzip cc.hi.300.vec.gz' in WSL\n"
-        "    3. Run with: --fasttext path/to/cc.hi.300.vec\n"
-        "  Training will work without it but results will be noticeably worse.\n"
+        "\n[WARNING] No FastText file provided — using random embeddings.\n"
+        "  For GCP runs, upload once and the startup script handles the rest:\n"
+        "    gsutil cp cc.hi.300.bin gs://<bucket>/embeddings/cc.hi.300.bin\n"
+        "  For local Windows runs, download cc.hi.300.vec.gz, extract, and pass:\n"
+        "    --fasttext path/to/cc.hi.300.vec\n"
     )
     return random_embedding_matrix(len(vocab), dim=embedding_dim)

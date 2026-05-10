@@ -1,0 +1,172 @@
+{
+  "timestamp": "20260510_064454",
+  "models": [
+    "lstm"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "LSTM",
+      "best_val_f1": 0.5975455848102088,
+      "best_val_recall": 0.6085206640607267,
+      "best_train_f1": 0.6993,
+      "overfit_gap": -0.1018,
+      "best_epoch": 5,
+      "total_time": 853.4,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.4155,
+          "grad_norm": 0.2325,
+          "embed_norm": 0.115782,
+          "train_f1": 0.6072,
+          "train_recall": 0.6228,
+          "val_f1": 0.561,
+          "val_recall": 0.5703,
+          "val_precision": 0.554,
+          "overfit_gap": -0.0462
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2687,
+          "grad_norm": 0.1933,
+          "embed_norm": 0.118411,
+          "train_f1": 0.6468,
+          "train_recall": 0.6682,
+          "val_f1": 0.5885,
+          "val_recall": 0.605,
+          "val_precision": 0.5733,
+          "overfit_gap": -0.0582
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2396,
+          "grad_norm": 0.1818,
+          "embed_norm": 0.111836,
+          "train_f1": 0.6625,
+          "train_recall": 0.6942,
+          "val_f1": 0.5839,
+          "val_recall": 0.6149,
+          "val_precision": 0.5586,
+          "overfit_gap": -0.0785
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2199,
+          "grad_norm": 0.1817,
+          "embed_norm": 0.112446,
+          "train_f1": 0.6756,
+          "train_recall": 0.7008,
+          "val_f1": 0.5884,
+          "val_recall": 0.6109,
+          "val_precision": 0.5687,
+          "overfit_gap": -0.0871
+        },
+        {
+          "epoch": 5,
+          "loss": 0.2013,
+          "grad_norm": 0.1768,
+          "embed_norm": 0.112639,
+          "train_f1": 0.6993,
+          "train_recall": 0.7174,
+          "val_f1": 0.5975,
+          "val_recall": 0.6085,
+          "val_precision": 0.5872,
+          "overfit_gap": -0.1018
+        },
+        {
+          "epoch": 6,
+          "loss": 0.185,
+          "grad_norm": 0.1756,
+          "embed_norm": 0.112459,
+          "train_f1": 0.7169,
+          "train_recall": 0.7371,
+          "val_f1": 0.5907,
+          "val_recall": 0.6052,
+          "val_precision": 0.5772,
+          "overfit_gap": -0.1262
+        },
+        {
+          "epoch": 7,
+          "loss": 0.1708,
+          "grad_norm": 0.1682,
+          "embed_norm": 0.111219,
+          "train_f1": 0.7328,
+          "train_recall": 0.7548,
+          "val_f1": 0.5932,
+          "val_recall": 0.6099,
+          "val_precision": 0.5777,
+          "overfit_gap": -0.1396
+        },
+        {
+          "epoch": 8,
+          "loss": 0.1587,
+          "grad_norm": 0.1666,
+          "embed_norm": 0.111231,
+          "train_f1": 0.7403,
+          "train_recall": 0.7854,
+          "val_f1": 0.5735,
+          "val_recall": 0.6249,
+          "val_precision": 0.5306,
+          "overfit_gap": -0.1668
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1476,
+          "grad_norm": 0.1662,
+          "embed_norm": 0.111806,
+          "train_f1": 0.7571,
+          "train_recall": 0.7928,
+          "val_f1": 0.5806,
+          "val_recall": 0.619,
+          "val_precision": 0.5492,
+          "overfit_gap": -0.1765
+        },
+        {
+          "epoch": 10,
+          "loss": 0.1386,
+          "grad_norm": 0.1641,
+          "embed_norm": 0.110946,
+          "train_f1": 0.7747,
+          "train_recall": 0.7939,
+          "val_f1": 0.5823,
+          "val_recall": 0.6045,
+          "val_precision": 0.5617,
+          "overfit_gap": -0.1924
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in lstm. Embedding gradient norm ratio: 95.8%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/lstm_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "LSTM",
+      "macro_f1": 0.6003,
+      "macro_recall": 0.6082,
+      "invalid_bio": 1541,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6608391608391608,
+          "recall": 0.7071084981293426,
+          "f1-score": 0.683191324554609,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.4184495693248124,
+          "recall": 0.42735527809307605,
+          "f1-score": 0.4228555383967429,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.6996466431095406,
+          "recall": 0.6900804289544236,
+          "f1-score": 0.694830611418545,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

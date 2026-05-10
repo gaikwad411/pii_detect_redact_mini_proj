@@ -15,14 +15,14 @@ $ErrorActionPreference = "Stop"
 $PROJECT_ID     = (gcloud config get-value project)
 $BUCKET         = "gs://$PROJECT_ID-pii-training"
 $ZONE           = "us-central1-a"
-$MACHINE_TYPE   = "e2-standard-4"   # 4 vCPU, fits within default quota (8 CPUs = 2 VMs at once)
+$MACHINE_TYPE   = "c3-highcpu-8"
 $DISK_SIZE      = "30GB"
 $IMAGE_FAMILY   = "debian-12"
 $IMAGE_PROJECT  = "debian-cloud"
 $STARTUP_SCRIPT = "$PSScriptRoot\2_vm_startup.sh"
 
 # Training hyperparameters
-$LIMIT    = 50000
+$LIMIT    = 100000
 $BATCH    = 32
 $PATIENCE = 5
 

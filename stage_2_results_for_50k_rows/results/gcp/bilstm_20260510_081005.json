@@ -1,0 +1,160 @@
+{
+  "timestamp": "20260510_081005",
+  "models": [
+    "bilstm"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "BiLSTM",
+      "best_val_f1": 0.671723956860906,
+      "best_val_recall": 0.6740494464170811,
+      "best_train_f1": 0.7852,
+      "overfit_gap": -0.1135,
+      "best_epoch": 4,
+      "total_time": 2312.8,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.3623,
+          "grad_norm": 0.2436,
+          "embed_norm": 0.133834,
+          "train_f1": 0.6837,
+          "train_recall": 0.6702,
+          "val_f1": 0.6316,
+          "val_recall": 0.6144,
+          "val_precision": 0.6517,
+          "overfit_gap": -0.0521
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2236,
+          "grad_norm": 0.201,
+          "embed_norm": 0.128837,
+          "train_f1": 0.7385,
+          "train_recall": 0.745,
+          "val_f1": 0.6626,
+          "val_recall": 0.6653,
+          "val_precision": 0.6605,
+          "overfit_gap": -0.0759
+        },
+        {
+          "epoch": 3,
+          "loss": 0.1917,
+          "grad_norm": 0.1867,
+          "embed_norm": 0.123515,
+          "train_f1": 0.761,
+          "train_recall": 0.7642,
+          "val_f1": 0.663,
+          "val_recall": 0.6629,
+          "val_precision": 0.6659,
+          "overfit_gap": -0.098
+        },
+        {
+          "epoch": 4,
+          "loss": 0.169,
+          "grad_norm": 0.1808,
+          "embed_norm": 0.123486,
+          "train_f1": 0.7852,
+          "train_recall": 0.7917,
+          "val_f1": 0.6717,
+          "val_recall": 0.674,
+          "val_precision": 0.6703,
+          "overfit_gap": -0.1135
+        },
+        {
+          "epoch": 5,
+          "loss": 0.1485,
+          "grad_norm": 0.1769,
+          "embed_norm": 0.123857,
+          "train_f1": 0.8024,
+          "train_recall": 0.8099,
+          "val_f1": 0.6654,
+          "val_recall": 0.67,
+          "val_precision": 0.6611,
+          "overfit_gap": -0.137
+        },
+        {
+          "epoch": 6,
+          "loss": 0.1312,
+          "grad_norm": 0.1683,
+          "embed_norm": 0.119959,
+          "train_f1": 0.8225,
+          "train_recall": 0.8209,
+          "val_f1": 0.6633,
+          "val_recall": 0.6565,
+          "val_precision": 0.6703,
+          "overfit_gap": -0.1592
+        },
+        {
+          "epoch": 7,
+          "loss": 0.1149,
+          "grad_norm": 0.1653,
+          "embed_norm": 0.118737,
+          "train_f1": 0.8432,
+          "train_recall": 0.847,
+          "val_f1": 0.6605,
+          "val_recall": 0.6663,
+          "val_precision": 0.6556,
+          "overfit_gap": -0.1826
+        },
+        {
+          "epoch": 8,
+          "loss": 0.101,
+          "grad_norm": 0.1598,
+          "embed_norm": 0.115868,
+          "train_f1": 0.8614,
+          "train_recall": 0.8644,
+          "val_f1": 0.6543,
+          "val_recall": 0.6627,
+          "val_precision": 0.6463,
+          "overfit_gap": -0.207
+        },
+        {
+          "epoch": 9,
+          "loss": 0.0895,
+          "grad_norm": 0.1553,
+          "embed_norm": 0.113586,
+          "train_f1": 0.8767,
+          "train_recall": 0.8786,
+          "val_f1": 0.6524,
+          "val_recall": 0.66,
+          "val_precision": 0.6461,
+          "overfit_gap": -0.2243
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in bilstm. Embedding gradient norm ratio: 84.9%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/bilstm_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "BiLSTM",
+      "macro_f1": 0.6778,
+      "macro_recall": 0.6809,
+      "invalid_bio": 535,
+      "per_class": {
+        "LOC": {
+          "precision": 0.7236503856041131,
+          "recall": 0.7522715125601283,
+          "f1-score": 0.7376834381551364,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.5808823529411765,
+          "recall": 0.5380249716231555,
+          "f1-score": 0.5586328815556867,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.7219650205761317,
+          "recall": 0.7525469168900805,
+          "f1-score": 0.7369388290889998,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}

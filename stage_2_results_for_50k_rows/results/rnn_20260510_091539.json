@@ -1,0 +1,172 @@
+{
+  "timestamp": "20260510_091539",
+  "models": [
+    "rnn"
+  ],
+  "limit": 50000,
+  "epochs": 20,
+  "hidden_dim": 128,
+  "train_results": [
+    {
+      "model_name": "RNN",
+      "best_val_f1": 0.5866465939989011,
+      "best_val_recall": 0.6091267159392516,
+      "best_train_f1": 0.6861,
+      "overfit_gap": -0.0995,
+      "best_epoch": 5,
+      "total_time": 5335.5,
+      "per_epoch": [
+        {
+          "epoch": 1,
+          "loss": 0.3525,
+          "grad_norm": 0.4072,
+          "embed_norm": 0.188906,
+          "train_f1": 0.6294,
+          "train_recall": 0.6588,
+          "val_f1": 0.5756,
+          "val_recall": 0.602,
+          "val_precision": 0.5516,
+          "overfit_gap": -0.0538
+        },
+        {
+          "epoch": 2,
+          "loss": 0.2652,
+          "grad_norm": 0.3551,
+          "embed_norm": 0.155003,
+          "train_f1": 0.6488,
+          "train_recall": 0.668,
+          "val_f1": 0.5829,
+          "val_recall": 0.5988,
+          "val_precision": 0.5713,
+          "overfit_gap": -0.0659
+        },
+        {
+          "epoch": 3,
+          "loss": 0.2451,
+          "grad_norm": 0.3461,
+          "embed_norm": 0.142135,
+          "train_f1": 0.6585,
+          "train_recall": 0.6752,
+          "val_f1": 0.5856,
+          "val_recall": 0.6004,
+          "val_precision": 0.5748,
+          "overfit_gap": -0.0728
+        },
+        {
+          "epoch": 4,
+          "loss": 0.2314,
+          "grad_norm": 0.347,
+          "embed_norm": 0.137072,
+          "train_f1": 0.6795,
+          "train_recall": 0.7201,
+          "val_f1": 0.5863,
+          "val_recall": 0.628,
+          "val_precision": 0.5506,
+          "overfit_gap": -0.0931
+        },
+        {
+          "epoch": 5,
+          "loss": 0.2189,
+          "grad_norm": 0.3472,
+          "embed_norm": 0.135699,
+          "train_f1": 0.6861,
+          "train_recall": 0.7113,
+          "val_f1": 0.5866,
+          "val_recall": 0.6091,
+          "val_precision": 0.5668,
+          "overfit_gap": -0.0995
+        },
+        {
+          "epoch": 6,
+          "loss": 0.2112,
+          "grad_norm": 0.3478,
+          "embed_norm": 0.134881,
+          "train_f1": 0.7042,
+          "train_recall": 0.7258,
+          "val_f1": 0.5861,
+          "val_recall": 0.6064,
+          "val_precision": 0.5672,
+          "overfit_gap": -0.1181
+        },
+        {
+          "epoch": 7,
+          "loss": 0.2026,
+          "grad_norm": 0.3468,
+          "embed_norm": 0.135336,
+          "train_f1": 0.7046,
+          "train_recall": 0.7266,
+          "val_f1": 0.5823,
+          "val_recall": 0.6038,
+          "val_precision": 0.5635,
+          "overfit_gap": -0.1223
+        },
+        {
+          "epoch": 8,
+          "loss": 0.1945,
+          "grad_norm": 0.3522,
+          "embed_norm": 0.138408,
+          "train_f1": 0.7077,
+          "train_recall": 0.7332,
+          "val_f1": 0.5854,
+          "val_recall": 0.6082,
+          "val_precision": 0.5666,
+          "overfit_gap": -0.1222
+        },
+        {
+          "epoch": 9,
+          "loss": 0.1884,
+          "grad_norm": 0.3505,
+          "embed_norm": 0.138601,
+          "train_f1": 0.717,
+          "train_recall": 0.7688,
+          "val_f1": 0.5753,
+          "val_recall": 0.6312,
+          "val_precision": 0.531,
+          "overfit_gap": -0.1417
+        },
+        {
+          "epoch": 10,
+          "loss": 0.183,
+          "grad_norm": 0.3542,
+          "embed_norm": 0.141154,
+          "train_f1": 0.7236,
+          "train_recall": 0.753,
+          "val_f1": 0.582,
+          "val_recall": 0.609,
+          "val_precision": 0.559,
+          "overfit_gap": -0.1416
+        }
+      ],
+      "gradient_problem": "HEALTHY GRADIENTS in rnn. Embedding gradient norm ratio: 74.7%. Gating mechanisms successfully prevent vanishing.",
+      "checkpoint_path": "checkpoints/rnn_best.pt"
+    }
+  ],
+  "eval_results": [
+    {
+      "model_name": "RNN",
+      "macro_f1": 0.5878,
+      "macro_recall": 0.6101,
+      "invalid_bio": 1803,
+      "per_class": {
+        "LOC": {
+          "precision": 0.6712293388429752,
+          "recall": 0.6945483698556921,
+          "f1-score": 0.6826897819805622,
+          "support": 3742
+        },
+        "ORG": {
+          "precision": 0.40825942350332595,
+          "recall": 0.41799091940976163,
+          "f1-score": 0.41306786315199095,
+          "support": 3524
+        },
+        "PER": {
+          "precision": 0.624009324009324,
+          "recall": 0.7176943699731904,
+          "f1-score": 0.667581047381546,
+          "support": 3730
+        }
+      }
+    }
+  ]
+}
